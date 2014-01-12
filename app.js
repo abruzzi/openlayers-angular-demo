@@ -14,10 +14,10 @@ app.controller('EventController',
     $scope.time = new Date();
     $scope.text = "Sun Mansi";
 
-    $scope.showPopup = function() {
-        var html = "<div><span>{{time}}</span><span>{{text}}</span></div>";
-        var content = $compile(html)($scope);
+    var template = "<div><span>{{time}}</span> / <span>{{text}}</span></div>";
+    var content = $compile(template)($scope);
 
+    $scope.showPopup = function() {
         var popup = new OpenLayers.Popup.FramedCloud("popup",
             OpenLayers.LonLat.fromString("-5694.06868525478, 6708925.0877411375"),
             null,
