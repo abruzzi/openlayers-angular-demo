@@ -1,7 +1,7 @@
 var app = angular.module('OpenLayersApp', []);
 
 app.controller('EventController', 
-        ['$scope', '$compile', function($scope, $compile) {
+        ['$scope', '$compile', '$timeout', function($scope, $compile, $timeout) {
 
     var map = new OpenLayers.Map("map",{projection:"EPSG:3857"});
     var osm = new OpenLayers.Layer.OSM();
@@ -11,20 +11,29 @@ app.controller('EventController',
     map.addLayers([osm]);
     map.setCenter(new OpenLayers.LonLat(center.x,center.y), 13);
 
-    $scope.time = new Date();
-    $scope.text = "Sun Mansi";
+    $scope.data = {
+        text: "Sun Mansi",
+        time: new Date()
+    };
 
-    var template = "<div><span>{{time}}</span> / <span>{{text}}</span></div>";
-    var content = $compile(template)($scope);
+    var template = "<div><span>{{data.time}}</span> / <span>{{data.text}}</span></div>";
 
     $scope.showPopup = function() {
-        var popup = new OpenLayers.Popup.FramedCloud("popup",
-            OpenLayers.LonLat.fromString("-5694.06868525478, 6708925.0877411375"),
-            null,
-            content.html(),
-            null,
-            true
-        );  
-        map.addPopup(popup);    
+        var content = $compile(template)($scope);
+
+        var lonlat = "-5694.06868525478, 6708925.0877411375";
+        $timeout(function() {
+            var popup = new OpenLayers.Popup.FramedCloud("popup",
+                OpenLayers.LonLat.fromString(lonlat),
+                null,
+                content.html(),
+                null,
+                true
+            );
+
+            map.addPopup(popup);
+
+        }, 0);
     };
+
 }]);
