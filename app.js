@@ -1,5 +1,17 @@
 var app = angular.module('OpenLayersApp', []);
 
+app.directive('mydir', function($compile) {
+    return {
+        restrict: "E",
+        replace: true,
+        template: "<div><span>{{data.time}}</span><span>{{data.text}}</span><input type='button' ng-click='func()' value='click me'/></div>",
+        link: function(scope, element, attrs) {
+            console.log(scope.data);
+            console.log(scope.func);
+        } 
+    };
+});
+
 app.controller('EventController', 
         ['$scope', '$compile', '$timeout', function($scope, $compile, $timeout) {
 
@@ -16,11 +28,16 @@ app.controller('EventController',
         time: new Date()
     };
 
-    var template = "<div><span>{{data.time}}</span> / <span>{{data.text}}</span></div>";
+    $scope.func = function() {
+        console.log("Hello, world");
+    };
+
+    var template = "<mydir></mydir>";
 
     $scope.showPopup = function() {
         var content = $compile(template)($scope);
-
+        
+        angular.element("#footer").append(content);
         var lonlat = "-5694.06868525478, 6708925.0877411375";
         $timeout(function() {
             var popup = new OpenLayers.Popup.FramedCloud("popup",

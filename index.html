@@ -3,17 +3,18 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8" />
         <title>Index</title>
-        <link rel="stylesheet" href="theme/default/style.css" type="text/css">
-        <link rel="stylesheet" href="style.css" type="text/css">
+        <link rel="stylesheet" href="libs/theme/default/style.css" type="text/css">
+        <link rel="stylesheet" href="style/style.css" type="text/css">
     </head>
     <body>
         <div ng-controller="EventController">
             <input type="button" value="show popup" ng-click="showPopup()" />
             <div id="map" class="smallmap"/>
         </div>
-        <script type="text/javascript" src="OpenLayers.debug.js"></script>
-        <script type="text/javascript" src="jquery.js"></script>
-        <script type="text/javascript" src="angular.js"></script>
+        <div id="footer" />
+        <script type="text/javascript" src="libs/OpenLayers.debug.js"></script>
+        <script type="text/javascript" src="libs/jquery.js"></script>
+        <script type="text/javascript" src="libs/angular.js"></script>
         <script type="text/javascript" src="app.js"></script>
     </body>
 </html>
