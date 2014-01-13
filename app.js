@@ -1,17 +1,5 @@
 var app = angular.module('OpenLayersApp', []);
 
-app.directive('mydir', function($compile) {
-    return {
-        restrict: "E",
-        replace: true,
-        template: "<div><span>{{data.time}}</span><span>{{data.text}}</span><input type='button' ng-click='func()' value='click me'/></div>",
-        link: function(scope, element, attrs) {
-            console.log(scope.data);
-            console.log(scope.func);
-        } 
-    };
-});
-
 app.controller('EventController', 
         ['$scope', '$compile', '$timeout', function($scope, $compile, $timeout) {
 
@@ -24,15 +12,14 @@ app.controller('EventController',
     map.setCenter(new OpenLayers.LonLat(center.x,center.y), 13);
 
     $scope.data = {
-        text: "Sun Mansi",
-        time: new Date()
+        text: "Sun Mansi"
     };
 
     $scope.func = function() {
         console.log("Hello, world");
     };
 
-    var template = "<mydir></mydir>";
+    var template = "<div><span>{{data.text}}</span><input type='button' ng-click='func()' value='click me'/></div>";
 
     $scope.showPopup = function() {
         var content = $compile(template)($scope);
@@ -49,7 +36,6 @@ app.controller('EventController',
             );
 
             map.addPopup(popup);
-
         }, 0);
     };
 
